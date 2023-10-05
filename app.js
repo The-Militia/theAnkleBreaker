@@ -3,10 +3,10 @@ let newNations = [];
 let intervalId;
 let running = false;
 
-// Enable or disable the Start button based on the User-Agent input
+
 document.querySelector("#nation-name").addEventListener("input", function() {
   const startButton = document.querySelector("#start-button");
-  startButton.disabled = this.value.trim().length <= 3; // Disable if User-Agent has 3 or fewer characters
+  startButton.disabled = this.value.trim().length <= 3; 
 });
 
 function startFetching() {
@@ -19,7 +19,7 @@ function startFetching() {
     // Fetch the initial nation list
     fetchAPIAndDisplay(regionName, nationName);
 
-    // Set an interval to fetch updates
+    
     intervalId = setInterval(() => {
       fetchAPIAndDisplay(regionName, nationName);
     }, 700);
@@ -64,18 +64,14 @@ async function fetchAPIAndDisplay(regionName, nationName) {
     const nationList = xmlDoc.querySelector("UNNATIONS").textContent.split(",");
 
     if (initialNationList.length === 0) {
-      // This is the first request, so save the initial nation list
       initialNationList = nationList;
     } else {
-      // Compare with the initial list to find new nations
       newNations = nationList.filter((nation) => !initialNationList.includes(nation));
-
-      // Update the web page with new nation names and links
+      
       if (newNations.length > 0) {
         const nationDiv = document.querySelector("#nation-list");
         newNations.forEach((nation) => {
           if (!document.querySelector(`#nation-${nation}`)) {
-            // Check if the nation element already exists
             const nationLink = document.createElement("a");
             nationLink.href = `https://www.nationstates.net/nation=${nation}#composebutton`;
             nationLink.textContent = nation;
@@ -83,7 +79,6 @@ async function fetchAPIAndDisplay(regionName, nationName) {
             nationDiv.appendChild(nationLink);
             nationDiv.appendChild(document.createElement("br"));
 
-            // Open a new tab for the nation's link
             window.open(`https://www.nationstates.net/nation=${nation}#composebutton`, "_blank");
           }
         });
