@@ -22,7 +22,7 @@ function startFetching() {
     
     intervalId = setInterval(() => {
       fetchAPIAndDisplay(regionName, nationName);
-    }, 700);
+    }, 800);
 
     running = true;
     document.querySelector("#status").textContent = "Running...";
